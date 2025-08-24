@@ -15,6 +15,6 @@ This is my sixth week  internship GitHub repository
 - **Backend:** Node.js, Express.js, MongoDB
 - **Authentication:** JWT (JSON Web Tokens), bcrypt.js
 - **Version Control:** Git & GitHub
-## How to run the projects locally 
+## How to run the projects locally and online for the main project
 - Clone the Repository
-- follow README from each project folder
+- follow README from each project folder with in the repository
