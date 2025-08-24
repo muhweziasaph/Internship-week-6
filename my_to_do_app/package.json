@@ -1,0 +1,13 @@
+{
+  "name": "my_to_do_app",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd backend && node seed.js && node server.js",
+    "client": "cd frontend-todo-list-app && npm start"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
