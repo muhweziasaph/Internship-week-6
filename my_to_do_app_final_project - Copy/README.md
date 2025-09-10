@@ -51,13 +51,18 @@ const sendEmail = async (to, subject, text) => {
 - SENDGRID_API_KEY=SendGrid api key
 - FROM_EMAIL=verified gmail by sendgrid
 ## Deployment procedure
-- At Render dashboard → New → Web Service.
-- Connected  GitHub repository withthe project to deploy thats is Internship-week-6.
-- Set these options:
-    - Name: mern-todo-app 
-    - Branch: main 
+- At Render,created new workspace, dashboard → New → Web Service.
+- Connected  GitHub repository withthe project to deploy thats is [Internship-week-6.](https://github.com/muhweziasaph/Internship-week-6.git) in public git repository,
+- created a project by setting the following:
+    - Name: mern-todo-app
+    - environment name:production
+- further settings
+    - language:node
+    - Branch: main
+    - region:Oregon(USA West)
     - Root Directory:my_to_do_app_final_project - Copy/backend
-- Build Command:npm install
-- start command:node server.js
+- Build Command:my_to_do_app_final_project - Copy/backend/ $ npm install
+- start command:my_to_do_app_final_project - Copy/backend/ $ node server.js
 - Environment: Node
 - Environment Variables: added my production .env variables.
+
