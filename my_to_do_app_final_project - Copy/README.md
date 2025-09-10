@@ -16,11 +16,7 @@ This project is a **MERN stack To-Do app** with full authentication:
          - install react-router-dom axios
          - npm run build
          - remove node_modules and commit the rest
-    - add link in backend server.js to serve the frontend react build
-        - app.use(express.static(path.join(__dirname, "..", "frontend_todo_list_app", "build")));
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "..", "frontend_todo_list_app", "build", "index.html"));
-});
+    - added link in backend server.js to serve the frontend react build
 - made my JWT_SECRET strong.
 - Installed SendGrid in backend
     - npm install @sendgrid/mail
@@ -65,4 +61,7 @@ const sendEmail = async (to, subject, text) => {
 - start command:my_to_do_app_final_project - Copy/backend/ $ node server.js
 - Environment: Node
 - Environment Variables: added my production .env variables.
+## link to the deployed app
+- https://internship-week-6.onrender.com
+
 
