@@ -62,6 +62,7 @@ mongoose
     console.error(" MongoDB connection error:", err);
     // Still start server in API-only mode so you can see logs
     app.listen(PORT, () =>
-      console.log(`🚀 Server running on port ${PORT} (MongoDB NOT connected)`)
+      console.log(` Server running on port ${PORT} (MongoDB NOT connected)`)
     );
   });
+
