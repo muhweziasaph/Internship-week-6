@@ -22,7 +22,7 @@ app.use("/api/tasks", taskRoutes);
 const __dirname1 = path.resolve();
 app.use(express.static(path.join(__dirname1, "frontend_todo_list_app", "build")));
 
-app.get("/*", (req, res) => {
+app.get(/^\/.*$/, (req, res) => {
   res.sendFile(path.join(__dirname1, "frontend_todo_list_app", "build", "index.html"));
 });
 
@@ -35,3 +35,4 @@ mongoose
     app.listen(PORT, () => console.log(` Server running on port ${PORT}`));
   })
   .catch((err) => console.error(" MongoDB connection error:", err));
+
