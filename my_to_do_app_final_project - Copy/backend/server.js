@@ -1,10 +1,8 @@
-import express from "express";
-import mongoose from "mongoose";
-import dotenv from "dotenv";
-import cors from "cors";
-import path from "path";
-import { fileURLToPath } from "url";
-import taskRoutes from "./routes/taskRoutes.js";
+const express = require("express");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const cors = require("cors");
+const path = require("path");
 
 dotenv.config();
 
@@ -18,26 +16,25 @@ app.use(express.json());
 // MongoDB connection
 mongoose
   .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("MongoDB connected"))
+  .then(() => console.log(" MongoDB connected"))
   .catch((err) => console.error(" MongoDB connection error:", err));
 
-// API routes
+// Routes
+const taskRoutes = require("./routes/taskRoutes.js");
 app.use("/api/tasks", taskRoutes);
-
-// Path helpers
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 // Serve frontend build
 const frontendPath = path.join(__dirname, "../frontend/build");
 app.use(express.static(frontendPath));
 
-// Catch-all route for React (fix for Express v5+)
-app.get("/*", (req, res) => {
-  res.sendFile(path.join(frontendPath, "index.html"));
+// Catch-all route (for React frontend)
+app.use((req, res, next) => {
+  res.sendFile(path.join(frontendPath, "index.html"), (err) => {
+    if (err) next(err);
+  });
 });
 
 // Start server
 app.listen(PORT, () => {
-  console.log(` Server running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
