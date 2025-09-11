@@ -46,15 +46,7 @@ router.post("/register", async (req, res) => {
 
     // 3. Hash token & create user
     const hashedTemp = await bcrypt.hash(tempToken, 10);
-    const user = new User({ name, email, password: hashedPassword });
-    await user.save();
-
-    res.status(201).json({ message: "User registered successfully", user });
-  } catch (err) {
-    console.error("Registration error:", err);
-    res.status(500).json({ message: "Server error", error: err.message });
-  }
-});
+    const user = await User.create({ email, phone, password: hashedTemp });
     // 5. Email token to user
     await sendEmail(
       email,
@@ -159,4 +151,5 @@ router.post("/reset-password", async (req, res) => {
 });
 
 module.exports = router;
+
 
