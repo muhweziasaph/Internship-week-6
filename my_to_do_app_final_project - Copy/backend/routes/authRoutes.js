@@ -29,25 +29,33 @@ const sendEmail = async (to, subject, text) => {
     throw new Error("Failed to send email");
   }
 };
-// REGISTER — email + phone → send temp token (hashed in DB) and seed tasks for this user
+
+// REGISTER
 router.post("/register", async (req, res) => {
   const { email, phone } = req.body;
 
   try {
-    // 1. Check if user exists
     let existing = await User.findOne({ email });
     if (existing) {
       return res.status(400).json({ message: "User already exists" });
     }
 
-    // 2. Generate temporary token (6 digits)
     const tempToken = Math.floor(100000 + Math.random() * 900000).toString();
     console.log("[DEV] First-time token for", email, "=>", tempToken);
 
-    // 3. Hash token & create user
     const hashedTemp = await bcrypt.hash(tempToken, 10);
-    const user = await User.create({ email, phone, password: hashedTemp });
-    // 5. Email token to user
+
+    // Ensure required fields are covered
+    const user = new User({
+      email,
+      phone,
+      password: hashedTemp,
+      isFirstLogin: true,
+      resetToken: null,
+    });
+
+    await user.save();
+
     await sendEmail(
       email,
       "Your First-Time Login Token",
@@ -56,13 +64,11 @@ router.post("/register", async (req, res) => {
 
     return res.json({
       message:
-        "Registration successful. Check your email inbox (Mailtrap) for your first-time token.",
+        "Registration successful. Check your email inbox for your first-time token.",
     });
   } catch (err) {
-    console.error(err.message);
-    return res
-      .status(500)
-      .json({ message: "Server error", error: err.message });
+    console.error("Registration Error:", err); // full log
+    return res.status(500).json({ message: "Server error", error: err.message });
   }
 });
 // LOGIN — first-time token OR real password
@@ -151,5 +157,6 @@ router.post("/reset-password", async (req, res) => {
 });
 
 module.exports = router;
+
 
 
