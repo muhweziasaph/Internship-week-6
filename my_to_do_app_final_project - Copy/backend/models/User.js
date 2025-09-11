@@ -11,7 +11,6 @@ const UserSchema = new mongoose.Schema(
     },
     phone: {
       type: String,
-      required: false,
       trim: true,
     },
     password: {
@@ -20,11 +19,11 @@ const UserSchema = new mongoose.Schema(
     },
     isFirstLogin: {
       type: Boolean,
-      default: true, // true when using temp token, false after setting real password
+      default: true, // stays true until user sets a real password
     },
     resetToken: {
       type: String,
-      default: null, // for forgot-password flow
+      default: null, // used only for forgot/reset password
     },
   },
 );
